@@ -57,12 +57,42 @@ void Maze::printPath() {
     cout << "----------------------\nPATH:" << endl;
     cout << Tile(opened, endX, endY);
 
+    layout[startY][startX].state = path;
+    layout[endY][endX].state = path;
+    int len = 0;
+
     Tile *pred = layout[endY][endX].predecessor;
     while (pred) {
         cout << " <- " << *pred;
+        len++;
+        pred->state = path;
         pred = pred->predecessor;
     }
-    cout << endl;
+    cout << "\nLength: " << len << endl;
+
+    cout << "----------------------\nMAZE:" << endl;
+    for ( const auto & row: layout ) {
+        for (const auto & tile : row) {
+            switch (tile.state) {
+                case wall:
+                    cout << "\033[1;32mX\033[0m";
+                    break;
+                case closed:
+                    cout << "\033[0;37m#\033[0m";
+                    break;
+                case opened:
+                    cout << "\033[0;37m@\033[0m";
+                    break;
+                case undiscovered:
+                    cout << " ";
+                    break;
+                case path:
+                    cout << "\033[1;31m.\033[0m";
+                    break;
+            }
+        }
+        cout << endl;
+    }
 }
 
 

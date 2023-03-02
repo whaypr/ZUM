@@ -15,7 +15,7 @@ public:
   void AStar();
 
 private:
-  enum State { wall, closed, opened, undiscovered };
+  enum State { wall, closed, opened, undiscovered, path };
 
   struct Tile {
     Tile(State state, int x, int y, int startDistance = INT32_MAX, Tile *predecessor = nullptr)
