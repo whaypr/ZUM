@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 
     if (argc != 3) crash(help, 1);
 
-    ifstream infile(argv[2]);
+    ifstream infile(argv[1]);
     if (infile.fail()) {
         infile.close();
         crash("Maze failed to load", 2);
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
         crash("Error during maze creation: " + e, 3);
     }
 
-    string algo = argv[1];
+    string algo = argv[2];
     if (algo == "1")
         maze->randomSearch();
     else if (algo == "2")
