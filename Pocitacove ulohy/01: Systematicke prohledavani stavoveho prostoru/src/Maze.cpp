@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -97,7 +98,40 @@ void Maze::printPath() {
 
 
 void Maze::randomSearch() {
+    vector<Tile*> v;
+    v.push_back(&layout[startY][startX]);
 
+    layout[startY][startX].startDistance = 0;
+
+	srand((unsigned) time(NULL));
+
+    while (!v.empty()) {
+        int random = rand() % v.size();
+        Tile *t = v[random];
+        v.erase(next(v.begin(), random));
+        cout << "Entering " << *t;
+
+        if (t->x == endX && t->y == endY) {
+            cout << " <--- SOLUTION FOUND!" << endl;
+            printPath();
+            return;
+        }
+        cout << endl;
+
+        for (pair<int, int> p : {make_pair(t->x-1, t->y), make_pair(t->x+1, t->y), make_pair(t->x, t->y-1), make_pair(t->x, t->y+1)}) {
+            Tile *tNext = &layout[p.second][p.first];
+            if (tNext->state == undiscovered) {
+                tNext->predecessor = t;
+                tNext->startDistance = t->startDistance + 1;
+                tNext->state = opened;
+                v.push_back(tNext);
+
+                cout << "\t " << *tNext << " opened" << endl;
+            }
+        }
+
+        t->state = closed;
+    }
 }
 
 
