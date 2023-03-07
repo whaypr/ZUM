@@ -8,13 +8,16 @@
 #include <sstream>
 #include <queue>
 #include <stack>
+#include<unistd.h> 
 
 #include "Maze.hpp"
 
 using namespace std;
 
 
-Maze::Maze(ifstream &infile) {
+Maze::Maze(ifstream &infile, bool dynamic) {
+    this->dynamic = dynamic;
+
     string line;
     int row = 0;
 
@@ -54,7 +57,148 @@ Maze::Maze(ifstream &infile) {
 }
 
 
-void Maze::printPath() {
+// -----------------------------------------------------------------------
+void Maze::randomSearch() {
+    vector<Tile*> v;
+    v.push_back(&layout[startY][startX]);
+
+    layout[startY][startX].startDistance = 0;
+
+	srand((unsigned) time(NULL));
+
+    while (!v.empty()) {
+        if (dynamic) {
+            printMaze();
+            usleep(dynamicRefreshTime);
+            system("clear");
+        }
+
+        int random = rand() % v.size();
+        Tile *t = v[random];
+        v.erase(next(v.begin(), random));
+        if (!dynamic) cout << "Entering " << *t;
+
+        if (t->x == endX && t->y == endY) {
+            if (!dynamic)cout << " <--- SOLUTION FOUND!" << endl;
+            printResults();
+            return;
+        }
+        cout << endl;
+
+        for (pair<int, int> p : {make_pair(t->x-1, t->y), make_pair(t->x+1, t->y), make_pair(t->x, t->y-1), make_pair(t->x, t->y+1)}) {
+            Tile *tNext = &layout[p.second][p.first];
+            if (tNext->state == undiscovered) {
+                tNext->predecessor = t;
+                tNext->startDistance = t->startDistance + 1;
+                tNext->state = opened;
+                v.push_back(tNext);
+
+                if (!dynamic) cout << "\t " << *tNext << " opened" << endl;
+            }
+        }
+
+        t->state = closed;
+    }
+}
+
+
+void Maze::DFS() {
+    stack<Tile*> s;
+    s.push(&layout[startY][startX]);
+
+    layout[startY][startX].startDistance = 0;
+
+    while (!s.empty()) {
+        if (dynamic) {
+            printMaze();
+            usleep(dynamicRefreshTime);
+            system("clear");
+        }
+
+        Tile *t = s.top();
+        s.pop();
+        if (!dynamic) cout << "Entering " << *t;
+
+        if (t->x == endX && t->y == endY) {
+            if (!dynamic)cout << " <--- SOLUTION FOUND!" << endl;
+            printResults();
+            return;
+        }
+        cout << endl;
+
+        for (pair<int, int> p : {make_pair(t->x-1, t->y), make_pair(t->x+1, t->y), make_pair(t->x, t->y-1), make_pair(t->x, t->y+1)}) {
+            Tile *tNext = &layout[p.second][p.first];
+            if (tNext->state == undiscovered) {
+                tNext->predecessor = t;
+                tNext->startDistance = t->startDistance + 1;
+                tNext->state = opened;
+                s.push(tNext);
+
+                if (!dynamic) cout << "\t " << *tNext << " opened" << endl;
+            }
+        }
+
+        t->state = closed;
+    }
+}
+
+
+void Maze::BFS() {
+    queue<Tile*> q;
+    q.push(&layout[startY][startX]);
+
+    layout[startY][startX].startDistance = 0;
+
+    while (!q.empty()) {
+        if (dynamic) {
+            printMaze();
+            usleep(dynamicRefreshTime);
+            system("clear");
+        }
+
+        Tile *t = q.front();
+        q.pop();
+        if (!dynamic) cout << "Entering " << *t;
+
+        if (t->x == endX && t->y == endY) {
+            if (!dynamic) cout << " <--- SOLUTION FOUND!" << endl;
+            printResults();
+            return;
+        }
+        cout << endl;
+
+        for (pair<int, int> p : {make_pair(t->x-1, t->y), make_pair(t->x+1, t->y), make_pair(t->x, t->y-1), make_pair(t->x, t->y+1)}) {
+            Tile *tNext = &layout[p.second][p.first];
+            if (tNext->state == undiscovered) {
+                tNext->predecessor = t;
+                tNext->startDistance = t->startDistance + 1;
+                tNext->state = opened;
+                q.push(tNext);
+
+                if (!dynamic) {
+                    string steps = ( q.size() == 1 ? ("the next step") : (to_string(q.size()) + " steps") ); 
+                    cout << "\t " << *tNext << " opened to be entered in " << steps << endl;
+                }
+            }
+        }
+
+        t->state = closed;
+    }
+}
+
+
+void Maze::greedySearch() {
+
+}
+
+
+void Maze::AStar() {
+
+}
+
+
+// -----------------------------------------------------------------------
+void Maze::printResults() {
     cout << "----------------------\nPATH:" << endl;
     cout << Tile(opened, endX, endY);
 
@@ -70,8 +214,13 @@ void Maze::printPath() {
         pred = pred->predecessor;
     }
     cout << "\nLength: " << len << endl;
-
+    
     cout << "----------------------\nMAZE:" << endl;
+    printMaze();
+}
+
+
+void Maze::printMaze() {
     for ( const auto & row: layout ) {
         for (const auto & tile : row) {
             switch (tile.state) {
@@ -94,123 +243,4 @@ void Maze::printPath() {
         }
         cout << endl;
     }
-}
-
-
-void Maze::randomSearch() {
-    vector<Tile*> v;
-    v.push_back(&layout[startY][startX]);
-
-    layout[startY][startX].startDistance = 0;
-
-	srand((unsigned) time(NULL));
-
-    while (!v.empty()) {
-        int random = rand() % v.size();
-        Tile *t = v[random];
-        v.erase(next(v.begin(), random));
-        cout << "Entering " << *t;
-
-        if (t->x == endX && t->y == endY) {
-            cout << " <--- SOLUTION FOUND!" << endl;
-            printPath();
-            return;
-        }
-        cout << endl;
-
-        for (pair<int, int> p : {make_pair(t->x-1, t->y), make_pair(t->x+1, t->y), make_pair(t->x, t->y-1), make_pair(t->x, t->y+1)}) {
-            Tile *tNext = &layout[p.second][p.first];
-            if (tNext->state == undiscovered) {
-                tNext->predecessor = t;
-                tNext->startDistance = t->startDistance + 1;
-                tNext->state = opened;
-                v.push_back(tNext);
-
-                cout << "\t " << *tNext << " opened" << endl;
-            }
-        }
-
-        t->state = closed;
-    }
-}
-
-
-void Maze::DFS() {
-    stack<Tile*> s;
-    s.push(&layout[startY][startX]);
-
-    layout[startY][startX].startDistance = 0;
-
-    while (!s.empty()) {
-        Tile *t = s.top();
-        s.pop();
-        cout << "Entering " << *t;
-
-        if (t->x == endX && t->y == endY) {
-            cout << " <--- SOLUTION FOUND!" << endl;
-            printPath();
-            return;
-        }
-        cout << endl;
-
-        for (pair<int, int> p : {make_pair(t->x-1, t->y), make_pair(t->x+1, t->y), make_pair(t->x, t->y-1), make_pair(t->x, t->y+1)}) {
-            Tile *tNext = &layout[p.second][p.first];
-            if (tNext->state == undiscovered) {
-                tNext->predecessor = t;
-                tNext->startDistance = t->startDistance + 1;
-                tNext->state = opened;
-                s.push(tNext);
-
-                cout << "\t " << *tNext << " opened" << endl;
-            }
-        }
-
-        t->state = closed;
-    }
-}
-
-
-void Maze::BFS() {
-    queue<Tile*> q;
-    q.push(&layout[startY][startX]);
-
-    layout[startY][startX].startDistance = 0;
-
-    while (!q.empty()) {
-        Tile *t = q.front();
-        q.pop();
-        cout << "Entering " << *t;
-
-        if (t->x == endX && t->y == endY) {
-            cout << " <--- SOLUTION FOUND!" << endl;
-            printPath();
-            return;
-        }
-        cout << endl;
-
-        for (pair<int, int> p : {make_pair(t->x-1, t->y), make_pair(t->x+1, t->y), make_pair(t->x, t->y-1), make_pair(t->x, t->y+1)}) {
-            Tile *tNext = &layout[p.second][p.first];
-            if (tNext->state == undiscovered) {
-                tNext->predecessor = t;
-                tNext->startDistance = t->startDistance + 1;
-                tNext->state = opened;
-                q.push(tNext);
-
-                string steps = ( q.size() == 1 ? ("the next step") : (to_string(q.size()) + " steps") ); 
-                cout << "\t " << *tNext << " opened to be entered in " << steps << endl;
-            }
-        }
-
-        t->state = closed;
-    }
-}
-
-
-void Maze::greedySearch() {
-
-}
-
-
-void Maze::AStar() {
-
 }
