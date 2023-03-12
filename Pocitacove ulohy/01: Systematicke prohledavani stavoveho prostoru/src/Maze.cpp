@@ -1,14 +1,7 @@
-#include <cstddef>
-#include <cstdint>
-#include <cstdlib>
 #include <iostream>
-#include <math.h>
 #include <string>
-#include <string.h>
-#include <fstream>
-#include <utility>
-#include <vector>
 #include <sstream>
+#include <vector>
 #include <queue>
 #include <stack>
 #include <unistd.h>
@@ -63,23 +56,21 @@ Maze::Maze(ifstream &infile, bool dynamic) {
 
 // -----------------------------------------------------------------------
 void Maze::randomSearch() {
-    vector<Tile*> v;
-    v.push_back(&layout[startY][startX]);
-
-    layout[startY][startX].startDistance = 0;
+    vector<Tile*> open;
+    open.push_back(&layout[startY][startX]);
 
 	srand((unsigned) time(NULL));
 
-    while (!v.empty()) {
+    while (!open.empty()) {
         if (dynamic) {
             printMaze();
             usleep(dynamicRefreshTime);
             system("clear");
         }
 
-        int random = rand() % v.size();
-        Tile *t = v[random];
-        v.erase(next(v.begin(), random));
+        int random = rand() % open.size();
+        Tile *t = open[random];
+        open.erase(next(open.begin(), random));
         if (!dynamic) cout << "Entering " << *t;
 
         if (t->x == endX && t->y == endY) {
@@ -93,9 +84,8 @@ void Maze::randomSearch() {
             Tile *tNext = &layout[p.second][p.first];
             if (tNext->state == undiscovered) {
                 tNext->predecessor = t;
-                tNext->startDistance = t->startDistance + 1;
                 tNext->state = opened;
-                v.push_back(tNext);
+                open.push_back(tNext);
 
                 if (!dynamic) cout << "\t " << *tNext << " opened" << endl;
             }
@@ -107,20 +97,18 @@ void Maze::randomSearch() {
 
 
 void Maze::DFS() {
-    stack<Tile*> s;
-    s.push(&layout[startY][startX]);
+    stack<Tile*> open;
+    open.push(&layout[startY][startX]);
 
-    layout[startY][startX].startDistance = 0;
-
-    while (!s.empty()) {
+    while (!open.empty()) {
         if (dynamic) {
             printMaze();
             usleep(dynamicRefreshTime);
             system("clear");
         }
 
-        Tile *t = s.top();
-        s.pop();
+        Tile *t = open.top();
+        open.pop();
         if (!dynamic) cout << "Entering " << *t;
 
         if (t->x == endX && t->y == endY) {
@@ -134,9 +122,8 @@ void Maze::DFS() {
             Tile *tNext = &layout[p.second][p.first];
             if (tNext->state == undiscovered) {
                 tNext->predecessor = t;
-                tNext->startDistance = t->startDistance + 1;
                 tNext->state = opened;
-                s.push(tNext);
+                open.push(tNext);
 
                 if (!dynamic) cout << "\t " << *tNext << " opened" << endl;
             }
@@ -148,20 +135,18 @@ void Maze::DFS() {
 
 
 void Maze::BFS() {
-    queue<Tile*> q;
-    q.push(&layout[startY][startX]);
+    queue<Tile*> open;
+    open.push(&layout[startY][startX]);
 
-    layout[startY][startX].startDistance = 0;
-
-    while (!q.empty()) {
+    while (!open.empty()) {
         if (dynamic) {
             printMaze();
             usleep(dynamicRefreshTime);
             system("clear");
         }
 
-        Tile *t = q.front();
-        q.pop();
+        Tile *t = open.front();
+        open.pop();
         if (!dynamic) cout << "Entering " << *t;
 
         if (t->x == endX && t->y == endY) {
@@ -175,12 +160,11 @@ void Maze::BFS() {
             Tile *tNext = &layout[p.second][p.first];
             if (tNext->state == undiscovered) {
                 tNext->predecessor = t;
-                tNext->startDistance = t->startDistance + 1;
                 tNext->state = opened;
-                q.push(tNext);
+                open.push(tNext);
 
                 if (!dynamic) {
-                    string steps = ( q.size() == 1 ? ("the next step") : (to_string(q.size()) + " steps") ); 
+                    string steps = ( open.size() == 1 ? ("the next step") : (to_string(open.size()) + " steps") ); 
                     cout << "\t " << *tNext << " opened to be entered in " << steps << endl;
                 }
             }
@@ -196,12 +180,12 @@ void Maze::greedySearch() {
         return sqrt( pow(ax - bx, 2) + pow(ay - by, 2) );
     };
 
-    vector<Tile*> v;
-    v.push_back(&layout[startY][startX]);
+    vector<Tile*> open;
+    open.push_back(&layout[startY][startX]);
 
     layout[startY][startX].endDistanceHeuristic = 0;
 
-    while (!v.empty()) {
+    while (!open.empty()) {
         if (dynamic) {
             printMaze();
             usleep(dynamicRefreshTime);
@@ -210,16 +194,16 @@ void Maze::greedySearch() {
 
         size_t argmin;
         double distShortest = INT32_MAX;
-        for (size_t i = 0; i < v.size(); ++i) {
-            Tile *tTmp = v[i];
+        for (size_t i = 0; i < open.size(); ++i) {
+            Tile *tTmp = open[i];
             if (tTmp->endDistanceHeuristic < distShortest) {
                 argmin = i;
                 distShortest = tTmp->endDistanceHeuristic;
             }
         }
 
-        Tile *t = v[argmin];
-        v.erase(next(begin(v), argmin));
+        Tile *t = open[argmin];
+        open.erase(next(begin(open), argmin));
         if (!dynamic) cout << "Entering " << *t;
 
         if (t->x == endX && t->y == endY) {
@@ -235,7 +219,7 @@ void Maze::greedySearch() {
                 tNext->predecessor = t;
                 tNext->endDistanceHeuristic = metric(tNext->x, tNext->y, endX, endY);
                 tNext->state = opened;
-                v.push_back(tNext);
+                open.push_back(tNext);
 
                 if (!dynamic) cout << "\t " << *tNext << " opened" << endl;
             }
@@ -252,13 +236,13 @@ void Maze::AStar() {
         return abs(ax - bx) + abs(ay - by);
     };
 
-    vector<Tile*> v;
-    v.push_back(&layout[startY][startX]);
+    vector<Tile*> open;
+    open.push_back(&layout[startY][startX]);
 
     layout[startY][startX].startDistance = 0;
     layout[startY][startX].endDistanceHeuristic = metric(startX, startY, endX, endY);
 
-    while (!v.empty()) {
+    while (!open.empty()) {
         if (dynamic) {
             printMaze();
             usleep(dynamicRefreshTime);
@@ -267,16 +251,16 @@ void Maze::AStar() {
 
         size_t argmin;
         double distShortest = INT32_MAX;
-        for (size_t i = 0; i < v.size(); ++i) {
-            double distTMP = v[i]->startDistance + v[i]->endDistanceHeuristic;
+        for (size_t i = 0; i < open.size(); ++i) {
+            double distTMP = open[i]->startDistance + open[i]->endDistanceHeuristic;
             if (distTMP < distShortest) {
                 argmin = i;
                 distShortest = distTMP;
             }
         }
 
-        Tile *t = v[argmin];
-        v.erase(next(begin(v), argmin));
+        Tile *t = open[argmin];
+        open.erase(next(begin(open), argmin));
         if (!dynamic) cout << "Entering " << *t;
 
         if (t->x == endX && t->y == endY) {
@@ -298,7 +282,7 @@ void Maze::AStar() {
                 tNext->endDistanceHeuristic = metric(tNext->x, tNext->y, endX, endY);
                 tNext->startDistance = startDistNext;
                 if (tNext->state == undiscovered)
-                    v.push_back(tNext);
+                    open.push_back(tNext);
                 tNext->state = opened;
 
                 if (!dynamic) cout << "\t " << *tNext << " opened" << endl;
@@ -315,8 +299,6 @@ void Maze::printResults() {
     cout << "----------------------\nPATH:" << endl;
     cout << Tile(opened, endX, endY);
 
-    layout[startY][startX].state = path;
-    layout[endY][endX].state = path;
     int len = 0;
 
     Tile *pred = layout[endY][endX].predecessor;
@@ -335,8 +317,13 @@ void Maze::printResults() {
 
 void Maze::printMaze() {
     for ( const auto & row: layout ) {
-        for (const auto & tile : row) {
-            switch (tile.state) {
+        for (const auto & t : row) {
+            if ( (t.x == startX && t.y == startY) || (t.x == endX && t.y == endY) ) {
+                cout << "\033[1;31m.\033[0m";
+                continue;
+            }
+
+            switch (t.state) {
                 case wall:
                     cout << "\033[1;32mX\033[0m";
                     break;

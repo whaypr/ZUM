@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
         "\t2: DFS\n"
         "\t3: BFS\n"
         "\t4: Greedy Search\n"
-        "\t5: A*"
+        "\t5: A*\n"
         "dynamic:\n"
         "\t0: Show only final result\n"
         "\t1: Show each step of pathfinding\n";
