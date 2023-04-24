@@ -145,6 +145,7 @@
     (:action putOnMask
         :parameters ()
         :precondition (and
+            (not (maskOn))
             (not (beltOn))
             (not (hatOn))
         )
@@ -166,6 +167,7 @@
     (:action putOnEyes
         :parameters ()
         :precondition (and
+            (not (eyesOn))
             (not (maskOn))
             (not (beltOn))
             (not (hatOn))
@@ -188,6 +190,7 @@
     (:action putOnBelt
         :parameters ()
         :precondition (and
+            (not (beltOn))
             (not (hatOn))
         )
         :effect (and
@@ -207,7 +210,9 @@
 
     (:action putOnHat
         :parameters ()
-        :precondition (and)
+        :precondition (and
+            (not (hatOn))
+        )
         :effect (and
             (hatOn)
         )
