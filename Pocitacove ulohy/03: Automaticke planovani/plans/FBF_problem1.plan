@@ -1,0 +1,10 @@
+;;!domain: factoryBallsForever
+;;!problem: level-1
+
+0.00000: (applyred)
+0.00100: (putonbelt)
+0.00200: (applyblue)
+0.00300: (putoffbelt)
+
+; Makespan: 0.003
+; Metric: 0.003
