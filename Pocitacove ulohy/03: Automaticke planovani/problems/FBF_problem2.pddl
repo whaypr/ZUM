@@ -1,3 +1,13 @@
+; +---------------+
+; | | | |G|G| | | |
+; +---------------+
+; | | | |B|B| | | |
+; +---------------+
+; | | |R|R|R|R| | |
+; +---------------+
+; | | | |G|G| | | |
+; +---------------+
+
 (define (problem level-2)
     (:domain factoryBallsForever)
     (:requirements :strips :negative-preconditions)
@@ -8,7 +18,9 @@
 
     (:goal (and
             (not (maskOn))
+            (not (eyesOn))
             (not (beltOn))
+            (not (hatOn))
             
             (t14Green)
             (t15Green)
