@@ -232,7 +232,7 @@
                 (and
                     (t11Red)
                     (not (t11Green))
-                    (not (t11BLue))
+                    (not (t11Blue))
                     (not (t11Yellow))
                 ))
             (when
@@ -240,7 +240,7 @@
                 (and
                     (t12Red)
                     (not (t12Green))
-                    (not (t12BLue))
+                    (not (t12Blue))
                     (not (t12Yellow))
                 ))
             (when
@@ -248,7 +248,7 @@
                 (and
                     (t13Red)
                     (not (t13Green))
-                    (not (t13BLue))
+                    (not (t13Blue))
                     (not (t13Yellow))
                 ))
             (when
@@ -256,7 +256,7 @@
                 (and
                     (t14Red)
                     (not (t14Green))
-                    (not (t14BLue))
+                    (not (t14Blue))
                     (not (t14Yellow))
                 ))
             (when
@@ -264,7 +264,7 @@
                 (and
                     (t15Red)
                     (not (t15Green))
-                    (not (t15BLue))
+                    (not (t15Blue))
                     (not (t15Yellow))
                 ))
             (when
@@ -272,7 +272,7 @@
                 (and
                     (t16Red)
                     (not (t16Green))
-                    (not (t16BLue))
+                    (not (t16Blue))
                     (not (t16Yellow))
                 ))
             (when
@@ -280,7 +280,7 @@
                 (and
                     (t17Red)
                     (not (t17Green))
-                    (not (t17BLue))
+                    (not (t17Blue))
                     (not (t17Yellow))
                 ))
             (when
@@ -288,7 +288,7 @@
                 (and
                     (t18Red)
                     (not (t18Green))
-                    (not (t18BLue))
+                    (not (t18Blue))
                     (not (t18Yellow))
                 ))
             (when
@@ -296,7 +296,7 @@
                 (and
                     (t21Red)
                     (not (t21Green))
-                    (not (t21BLue))
+                    (not (t21Blue))
                     (not (t21Yellow))
                 ))
             (when
@@ -304,7 +304,7 @@
                 (and
                     (t22Red)
                     (not (t22Green))
-                    (not (t22BLue))
+                    (not (t22Blue))
                     (not (t22Yellow))
                 ))
             (when
@@ -312,7 +312,7 @@
                 (and
                     (t23Red)
                     (not (t23Green))
-                    (not (t23BLue))
+                    (not (t23Blue))
                     (not (t23Yellow))
                 ))
             (when
@@ -320,7 +320,7 @@
                 (and
                     (t24Red)
                     (not (t24Green))
-                    (not (t24BLue))
+                    (not (t24Blue))
                     (not (t24Yellow))
                 ))
             (when
@@ -328,7 +328,7 @@
                 (and
                     (t25Red)
                     (not (t25Green))
-                    (not (t25BLue))
+                    (not (t25Blue))
                     (not (t25Yellow))
                 ))
             (when
@@ -336,7 +336,7 @@
                 (and
                     (t26Red)
                     (not (t26Green))
-                    (not (t26BLue))
+                    (not (t26Blue))
                     (not (t26Yellow))
                 ))
             (when
@@ -344,7 +344,7 @@
                 (and
                     (t27Red)
                     (not (t27Green))
-                    (not (t27BLue))
+                    (not (t27Blue))
                     (not (t27Yellow))
                 ))
             (when
@@ -352,7 +352,7 @@
                 (and
                     (t28Red)
                     (not (t28Green))
-                    (not (t28BLue))
+                    (not (t28Blue))
                     (not (t28Yellow))
                 ))
             (when
@@ -360,7 +360,7 @@
                 (and
                     (t31Red)
                     (not (t31Green))
-                    (not (t31BLue))
+                    (not (t31Blue))
                     (not (t31Yellow))
                 ))
             (when
@@ -368,7 +368,7 @@
                 (and
                     (t32Red)
                     (not (t32Green))
-                    (not (t32BLue))
+                    (not (t32Blue))
                     (not (t32Yellow))
                 ))
             (when
@@ -376,7 +376,7 @@
                 (and
                     (t33Red)
                     (not (t33Green))
-                    (not (t33BLue))
+                    (not (t33Blue))
                     (not (t33Yellow))
                 ))
             (when
@@ -384,7 +384,7 @@
                 (and
                     (t34Red)
                     (not (t34Green))
-                    (not (t34BLue))
+                    (not (t34Blue))
                     (not (t34Yellow))
                 ))
             (when
@@ -392,7 +392,7 @@
                 (and
                     (t35Red)
                     (not (t35Green))
-                    (not (t35BLue))
+                    (not (t35Blue))
                     (not (t35Yellow))
                 ))
             (when
@@ -400,7 +400,7 @@
                 (and
                     (t36Red)
                     (not (t36Green))
-                    (not (t36BLue))
+                    (not (t36Blue))
                     (not (t36Yellow))
                 ))
             (when
@@ -408,7 +408,7 @@
                 (and
                     (t37Red)
                     (not (t37Green))
-                    (not (t37BLue))
+                    (not (t37Blue))
                     (not (t37Yellow))
                 ))
             (when
@@ -416,7 +416,7 @@
                 (and
                     (t38Red)
                     (not (t38Green))
-                    (not (t38BLue))
+                    (not (t38Blue))
                     (not (t38Yellow))
                 ))
             (t41Red) (not (t41Blue)) (not (t41Green)) (not (t41Yellow))
@@ -439,7 +439,7 @@
                 (and
                     (t11Green)
                     (not (t11Red))
-                    (not (t11BLue))
+                    (not (t11Blue))
                     (not (t11Yellow))
                 ))
             (when
@@ -447,7 +447,7 @@
                 (and
                     (t12Green)
                     (not (t12Red))
-                    (not (t12BLue))
+                    (not (t12Blue))
                     (not (t12Yellow))
                 ))
             (when
@@ -455,7 +455,7 @@
                 (and
                     (t13Green)
                     (not (t13Red))
-                    (not (t13BLue))
+                    (not (t13Blue))
                     (not (t13Yellow))
                 ))
             (when
@@ -463,7 +463,7 @@
                 (and
                     (t14Green)
                     (not (t14Green))
-                    (not (t14BLue))
+                    (not (t14Blue))
                     (not (t14Yellow))
                 ))
             (when
@@ -471,7 +471,7 @@
                 (and
                     (t15Green)
                     (not (t15Red))
-                    (not (t15BLue))
+                    (not (t15Blue))
                     (not (t15Yellow))
                 ))
             (when
@@ -479,7 +479,7 @@
                 (and
                     (t16Green)
                     (not (t16Red))
-                    (not (t16BLue))
+                    (not (t16Blue))
                     (not (t16Yellow))
                 ))
             (when
@@ -487,7 +487,7 @@
                 (and
                     (t17Green)
                     (not (t17Red))
-                    (not (t17BLue))
+                    (not (t17Blue))
                     (not (t17Yellow))
                 ))
             (when
@@ -495,7 +495,7 @@
                 (and
                     (t18Green)
                     (not (t18Red))
-                    (not (t18BLue))
+                    (not (t18Blue))
                     (not (t18Yellow))
                 ))
             (when
@@ -503,7 +503,7 @@
                 (and
                     (t21Green)
                     (not (t21Red))
-                    (not (t21BLue))
+                    (not (t21Blue))
                     (not (t21Yellow))
                 ))
             (when
@@ -511,7 +511,7 @@
                 (and
                     (t22Green)
                     (not (t22Red))
-                    (not (t22BLue))
+                    (not (t22Blue))
                     (not (t22Yellow))
                 ))
             (when
@@ -519,7 +519,7 @@
                 (and
                     (t23Green)
                     (not (t23Red))
-                    (not (t23BLue))
+                    (not (t23Blue))
                     (not (t23Yellow))
                 ))
             (when
@@ -527,7 +527,7 @@
                 (and
                     (t24Green)
                     (not (t24Red))
-                    (not (t24BLue))
+                    (not (t24Blue))
                     (not (t24Yellow))
                 ))
             (when
@@ -535,7 +535,7 @@
                 (and
                     (t25Green)
                     (not (t25Red))
-                    (not (t25BLue))
+                    (not (t25Blue))
                     (not (t25Yellow))
                 ))
             (when
@@ -543,7 +543,7 @@
                 (and
                     (t26Green)
                     (not (t26Red))
-                    (not (t26BLue))
+                    (not (t26Blue))
                     (not (t26Yellow))
                 ))
             (when
@@ -551,7 +551,7 @@
                 (and
                     (t27Green)
                     (not (t27Red))
-                    (not (t27BLue))
+                    (not (t27Blue))
                     (not (t27Yellow))
                 ))
             (when
@@ -559,7 +559,7 @@
                 (and
                     (t28Green)
                     (not (t28Red))
-                    (not (t28BLue))
+                    (not (t28Blue))
                     (not (t28Yellow))
                 ))
             (when
@@ -567,7 +567,7 @@
                 (and
                     (t31Green)
                     (not (t31Red))
-                    (not (t31BLue))
+                    (not (t31Blue))
                     (not (t31Yellow))
                 ))
             (when
@@ -575,7 +575,7 @@
                 (and
                     (t32Green)
                     (not (t32Red))
-                    (not (t32BLue))
+                    (not (t32Blue))
                     (not (t32Yellow))
                 ))
             (when
@@ -583,7 +583,7 @@
                 (and
                     (t33Green)
                     (not (t33Red))
-                    (not (t33BLue))
+                    (not (t33Blue))
                     (not (t33Yellow))
                 ))
             (when
@@ -591,7 +591,7 @@
                 (and
                     (t34Green)
                     (not (t34Red))
-                    (not (t34BLue))
+                    (not (t34Blue))
                     (not (t34Yellow))
                 ))
             (when
@@ -599,7 +599,7 @@
                 (and
                     (t35Green)
                     (not (t35Red))
-                    (not (t35BLue))
+                    (not (t35Blue))
                     (not (t35Yellow))
                 ))
             (when
@@ -607,7 +607,7 @@
                 (and
                     (t36Green)
                     (not (t36Red))
-                    (not (t36BLue))
+                    (not (t36Blue))
                     (not (t36Yellow))
                 ))
             (when
@@ -615,7 +615,7 @@
                 (and
                     (t37Green)
                     (not (t37Red))
-                    (not (t37BLue))
+                    (not (t37Blue))
                     (not (t37Yellow))
                 ))
             (when
@@ -623,7 +623,7 @@
                 (and
                     (t38Green)
                     (not (t38Red))
-                    (not (t38BLue))
+                    (not (t38Blue))
                     (not (t38Yellow))
                 ))
             (t41Green) (not (t41Red)) (not (t41Blue)) (not (t41Yellow))
