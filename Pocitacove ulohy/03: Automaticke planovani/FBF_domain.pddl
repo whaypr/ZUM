@@ -7,39 +7,6 @@
         (beltOn)
         (hatOn)
 
-        (t11Covered)
-        (t12Covered)
-        (t13Covered)
-        (t14Covered)
-        (t15Covered)
-        (t16Covered)
-        (t17Covered)
-        (t18Covered)
-        (t21Covered)
-        (t22Covered)
-        (t23Covered)
-        (t24Covered)
-        (t25Covered)
-        (t26Covered)
-        (t27Covered)
-        (t28Covered)
-        (t31Covered)
-        (t32Covered)
-        (t33Covered)
-        (t34Covered)
-        (t35Covered)
-        (t36Covered)
-        (t37Covered)
-        (t38Covered)
-        (t41Covered)
-        (t42Covered)
-        (t43Covered)
-        (t44Covered)
-        (t45Covered)
-        (t46Covered)
-        (t47Covered)
-        (t48Covered)
-
         (t11Red)
         (t12Red)
         (t13Red)
@@ -150,10 +117,6 @@
         )
         :effect (and
             (maskOn)
-
-            (t11Covered) (t18Covered)
-            (t21Covered) (t24Covered) (t25Covered) (t28Covered)
-            (t31Covered) (t32Covered) (t37Covered) (t38Covered)
         )
     )
 
@@ -164,37 +127,6 @@
         )
         :effect (and
             (not (maskOn))
-
-            (when
-                (and (not (hatOn)))
-                (not (t11Covered)))
-            (when
-                (and (not (hatOn)))
-                (not (t18Covered)))
-            (when
-                (and (not (hatOn)) (not (beltOn)))
-                (not (t21Covered)))
-            (when
-                (and (not (hatOn)) (not (hatOn)))
-                (not (t24Covered)))
-            (when
-                (and (not (hatOn)) (not (hatOn)))
-                (not (t25Covered)))
-            (when
-                (and (not (hatOn)) (not (hatOn)))
-                (not (t28Covered)))
-            (when
-                (and (not (beltOn)))
-                (not (t31Covered)))
-            (when
-                (and (not (beltOn)))
-                (not (t32Covered)))
-            (when
-                (and (not (beltOn)))
-                (not (t37Covered)))
-            (when
-                (and (not (beltOn)))
-                (not (t38Covered)))
         )
     )
 
@@ -205,9 +137,6 @@
         )
         :effect (and
             (beltOn)
-
-            (t21Covered) (t22Covered) (t23Covered) (t24Covered) (t25Covered) (t26Covered) (t27Covered) (t28Covered)
-            (t31Covered) (t32Covered) (t33Covered) (t34Covered) (t35Covered) (t36Covered) (t37Covered) (t38Covered)
         )
     )
 
@@ -218,51 +147,6 @@
         )
         :effect (and
             (not (beltOn))
-
-            (when
-                (and (not (hatOn)) (not (maskOn)))
-                (not (t21Covered)))
-            (when
-                (and (not (hatOn)))
-                (not (t22Covered)))
-            (when
-                (and (not (hatOn)) (not (eyesOn)))
-                (not (t23Covered)))
-            (when
-                (and (not (hatOn)) (not (maskOn)))
-                (not (t24Covered)))
-            (when
-                (and (not (hatOn)) (not (maskOn)))
-                (not (t25Covered)))
-            (when
-                (and (not (hatOn)) (not (eyesOn)))
-                (not (t26Covered)))
-            (when
-                (and (not (hatOn)))
-                (not (t27Covered)))
-            (when
-                (and (not (hatOn)) (not (maskOn)))
-                (not (t28Covered)))
-            (when
-                (and (not (maskOn)))
-                (not (t31Covered)))
-            (when
-                (and (not (maskOn)))
-                (not (t32Covered)))
-            (when
-                (and (not (eyesOn)))
-                (not (t33Covered)))
-            (not (t34Covered))
-            (not (t35Covered))
-            (when
-                (and (not (eyesOn)))
-                (not (t36Covered)))
-            (when
-                (and (not (maskOn)))
-                (not (t37Covered)))
-            (when
-                (and (not (maskOn)))
-                (not (t38Covered)))
         )
     )
 
