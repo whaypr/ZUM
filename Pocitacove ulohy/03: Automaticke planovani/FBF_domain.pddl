@@ -163,6 +163,28 @@
         )
     )
 
+    (:action putOnEyes
+        :parameters ()
+        :precondition (and
+            (not (maskOn))
+            (not (beltOn))
+            (not (hatOn))
+        )
+        :effect (and
+            (eyesOn)
+        )
+    )
+
+    (:action putOffEyes
+        :parameters ()
+        :precondition (and
+            (eyesOn)
+        )
+        :effect (and
+            (not (eyesOn))
+        )
+    )
+
     (:action putOnBelt
         :parameters ()
         :precondition (and
@@ -180,6 +202,24 @@
         )
         :effect (and
             (not (beltOn))
+        )
+    )
+
+    (:action putOnHat
+        :parameters ()
+        :precondition (and)
+        :effect (and
+            (hatOn)
+        )
+    )
+
+    (:action putOffHat
+        :parameters ()
+        :precondition (and
+            (hatOn)
+        )
+        :effect (and
+            (not (hatOn))
         )
     )
 
