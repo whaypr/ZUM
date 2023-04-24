@@ -1,143 +1,48 @@
 (define (domain factoryBallsForever)
     (:requirements :strips :negative-preconditions :typing :conditional-effects :equality :fluents)
 
+    (:types
+        color
+    )
+
     (:predicates
         (maskOn)
         (eyesOn)
         (beltOn)
         (hatOn)
 
-        (t11Red)
-        (t12Red)
-        (t13Red)
-        (t14Red)
-        (t15Red)
-        (t16Red)
-        (t17Red)
-        (t18Red)
-        (t21Red)
-        (t22Red)
-        (t23Red)
-        (t24Red)
-        (t25Red)
-        (t26Red)
-        (t27Red)
-        (t28Red)
-        (t31Red)
-        (t32Red)
-        (t33Red)
-        (t34Red)
-        (t35Red)
-        (t36Red)
-        (t37Red)
-        (t38Red)
-        (t41Red)
-        (t42Red)
-        (t43Red)
-        (t44Red)
-        (t45Red)
-        (t46Red)
-        (t47Red)
-        (t48Red)
-
-        (t11Green)
-        (t12Green)
-        (t13Green)
-        (t14Green)
-        (t15Green)
-        (t16Green)
-        (t17Green)
-        (t18Green)
-        (t21Green)
-        (t22Green)
-        (t23Green)
-        (t24Green)
-        (t25Green)
-        (t26Green)
-        (t27Green)
-        (t28Green)
-        (t31Green)
-        (t32Green)
-        (t33Green)
-        (t34Green)
-        (t35Green)
-        (t36Green)
-        (t37Green)
-        (t38Green)
-        (t41Green)
-        (t42Green)
-        (t43Green)
-        (t44Green)
-        (t45Green)
-        (t46Green)
-        (t47Green)
-        (t48Green)
-
-        (t11Blue)
-        (t12Blue)
-        (t13Blue)
-        (t14Blue)
-        (t15Blue)
-        (t16Blue)
-        (t17Blue)
-        (t18Blue)
-        (t21Blue)
-        (t22Blue)
-        (t23Blue)
-        (t24Blue)
-        (t25Blue)
-        (t26Blue)
-        (t27Blue)
-        (t28Blue)
-        (t31Blue)
-        (t32Blue)
-        (t33Blue)
-        (t34Blue)
-        (t35Blue)
-        (t36Blue)
-        (t37Blue)
-        (t38Blue)
-        (t41Blue)
-        (t42Blue)
-        (t43Blue)
-        (t44Blue)
-        (t45Blue)
-        (t46Blue)
-        (t47Blue)
-        (t48Blue)
-
-        (t11Yellow)
-        (t12Yellow)
-        (t13Yellow)
-        (t14Yellow)
-        (t15Yellow)
-        (t16Yellow)
-        (t17Yellow)
-        (t18Yellow)
-        (t21Yellow)
-        (t22Yellow)
-        (t23Yellow)
-        (t24Yellow)
-        (t25Yellow)
-        (t26Yellow)
-        (t27Yellow)
-        (t28Yellow)
-        (t31Yellow)
-        (t32Yellow)
-        (t33Yellow)
-        (t34Yellow)
-        (t35Yellow)
-        (t36Yellow)
-        (t37Yellow)
-        (t38Yellow)
-        (t41Yellow)
-        (t42Yellow)
-        (t43Yellow)
-        (t44Yellow)
-        (t45Yellow)
-        (t46Yellow)
-        (t47Yellow)
-        (t48Yellow)
+        (t11Color ?c - color)
+        (t12Color ?c - color)
+        (t13Color ?c - color)
+        (t14Color ?c - color)
+        (t15Color ?c - color)
+        (t16Color ?c - color)
+        (t17Color ?c - color)
+        (t18Color ?c - color)
+        (t21Color ?c - color)
+        (t22Color ?c - color)
+        (t23Color ?c - color)
+        (t24Color ?c - color)
+        (t25Color ?c - color)
+        (t26Color ?c - color)
+        (t27Color ?c - color)
+        (t28Color ?c - color)
+        (t31Color ?c - color)
+        (t32Color ?c - color)
+        (t33Color ?c - color)
+        (t34Color ?c - color)
+        (t35Color ?c - color)
+        (t36Color ?c - color)
+        (t37Color ?c - color)
+        (t38Color ?c - color)
+        (t41Color ?c - color)
+        (t42Color ?c - color)
+        (t43Color ?c - color)
+        (t44Color ?c - color)
+        (t45Color ?c - color)
+        (t46Color ?c - color)
+        (t47Color ?c - color)
+        (t48Color ?c - color)
     )
 
     (:functions
@@ -353,637 +258,201 @@
         )
     )
 
-    (:action applyRed
-        :parameters ()
+    (:action applyColor
+        :parameters (?c - color)
         :precondition (and)
         :effect (and
             (when
                 (= (t11CoverCounter) 0)
-                (and
-                    (t11Red)
-                    (not (t11Green)) (not (t11Blue)) (not (t11Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t11Color ?cFOR))
+                        (when (= ?c ?cFOR) (t11Color ?c)))))
             (when
                 (= (t12CoverCounter) 0)
-                (and
-                    (t12Red)
-                    (not (t12Green)) (not (t12Blue)) (not (t12Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t12Color ?cFOR))
+                        (when (= ?c ?cFOR) (t12Color ?c)))))
             (when
                 (= (t13CoverCounter) 0)
-                (and
-                    (t13Red)
-                    (not (t13Green)) (not (t13Blue)) (not (t13Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t13Color ?cFOR))
+                        (when (= ?c ?cFOR) (t13Color ?c)))))
             (when
                 (= (t14CoverCounter) 0)
-                (and
-                    (t14Red)
-                    (not (t14Green)) (not (t14Blue)) (not (t14Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t14Color ?cFOR))
+                        (when (= ?c ?cFOR) (t14Color ?c)))))
             (when
                 (= (t15CoverCounter) 0)
-                (and
-                    (t15Red)
-                    (not (t15Green)) (not (t15Blue)) (not (t15Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t15Color ?cFOR))
+                        (when (= ?c ?cFOR) (t15Color ?c)))))
             (when
                 (= (t16CoverCounter) 0)
-                (and
-                    (t16Red)
-                    (not (t16Green)) (not (t16Blue)) (not (t16Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t16Color ?cFOR))
+                        (when (= ?c ?cFOR) (t16Color ?c)))))
             (when
                 (= (t17CoverCounter) 0)
-                (and
-                    (t17Red)
-                    (not (t17Green)) (not (t17Blue)) (not (t17Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t17Color ?cFOR))
+                        (when (= ?c ?cFOR) (t17Color ?c)))))
             (when
                 (= (t18CoverCounter) 0)
-                (and
-                    (t18Red)
-                    (not (t18Green)) (not (t18Blue)) (not (t18Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t18Color ?cFOR))
+                        (when (= ?c ?cFOR) (t18Color ?c)))))
             (when
                 (= (t21CoverCounter) 0)
-                (and
-                    (t21Red)
-                    (not (t21Green)) (not (t21Blue)) (not (t21Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t21Color ?cFOR))
+                        (when (= ?c ?cFOR) (t21Color ?c)))))
             (when
                 (= (t22CoverCounter) 0)
-                (and
-                    (t22Red)
-                    (not (t22Green)) (not (t22Blue)) (not (t22Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t22Color ?cFOR))
+                        (when (= ?c ?cFOR) (t22Color ?c)))))
             (when
                 (= (t23CoverCounter) 0)
-                (and
-                    (t23Red)
-                    (not (t23Green)) (not (t23Blue)) (not (t23Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t23Color ?cFOR))
+                        (when (= ?c ?cFOR) (t23Color ?c)))))
             (when
                 (= (t24CoverCounter) 0)
-                (and
-                    (t24Red)
-                    (not (t24Green)) (not (t24Blue)) (not (t24Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t24Color ?cFOR))
+                        (when (= ?c ?cFOR) (t24Color ?c)))))
             (when
                 (= (t25CoverCounter) 0)
-                (and
-                    (t25Red)
-                    (not (t25Green)) (not (t25Blue)) (not (t25Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t25Color ?cFOR))
+                        (when (= ?c ?cFOR) (t25Color ?c)))))
             (when
                 (= (t26CoverCounter) 0)
-                (and
-                    (t26Red)
-                    (not (t26Green)) (not (t26Blue)) (not (t26Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t26Color ?cFOR))
+                        (when (= ?c ?cFOR) (t26Color ?c)))))
             (when
                 (= (t27CoverCounter) 0)
-                (and
-                    (t27Red)
-                    (not (t27Green)) (not (t27Blue)) (not (t27Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t27Color ?cFOR))
+                        (when (= ?c ?cFOR) (t27Color ?c)))))
             (when
                 (= (t28CoverCounter) 0)
-                (and
-                    (t28Red)
-                    (not (t28Green)) (not (t28Blue)) (not (t28Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t28Color ?cFOR))
+                        (when (= ?c ?cFOR) (t28Color ?c)))))
             (when
                 (= (t31CoverCounter) 0)
-                (and
-                    (t31Red)
-                    (not (t31Green)) (not (t31Blue)) (not (t31Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t31Color ?cFOR))
+                        (when (= ?c ?cFOR) (t31Color ?c)))))
             (when
                 (= (t32CoverCounter) 0)
-                (and
-                    (t32Red)
-                    (not (t32Green)) (not (t32Blue)) (not (t32Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t32Color ?cFOR))
+                        (when (= ?c ?cFOR) (t32Color ?c)))))
             (when
                 (= (t33CoverCounter) 0)
-                (and
-                    (t33Red)
-                    (not (t33Green)) (not (t33Blue)) (not (t33Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t33Color ?cFOR))
+                        (when (= ?c ?cFOR) (t33Color ?c)))))
             (when
                 (= (t34CoverCounter) 0)
-                (and
-                    (t34Red)
-                    (not (t34Green)) (not (t34Blue)) (not (t34Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t34Color ?cFOR))
+                        (when (= ?c ?cFOR) (t34Color ?c)))))
             (when
                 (= (t35CoverCounter) 0)
-                (and
-                    (t35Red)
-                    (not (t35Green)) (not (t35Blue)) (not (t35Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t35Color ?cFOR))
+                        (when (= ?c ?cFOR) (t35Color ?c)))))
             (when
                 (= (t36CoverCounter) 0)
-                (and
-                    (t36Red)
-                    (not (t36Green)) (not (t36Blue)) (not (t36Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t36Color ?cFOR))
+                        (when (= ?c ?cFOR) (t36Color ?c)))))
             (when
                 (= (t37CoverCounter) 0)
-                (and
-                    (t37Red)
-                    (not (t37Green)) (not (t37Blue)) (not (t37Yellow))
-                ))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t37Color ?cFOR))
+                        (when (= ?c ?cFOR) (t37Color ?c)))))
             (when
                 (= (t38CoverCounter) 0)
-                (and
-                    (t38Red)
-                    (not (t38Green)) (not (t38Blue)) (not (t38Yellow))
-                ))
-            (t41Red) (not (t41Blue)) (not (t41Green)) (not (t41Yellow))
-            (t42Red) (not (t42Blue)) (not (t42Green)) (not (t42Yellow))
-            (t43Red) (not (t43Blue)) (not (t43Green)) (not (t43Yellow))
-            (t44Red) (not (t44Blue)) (not (t44Green)) (not (t44Yellow))
-            (t45Red) (not (t45Blue)) (not (t45Green)) (not (t45Yellow))
-            (t46Red) (not (t46Blue)) (not (t46Green)) (not (t46Yellow))
-            (t47Red) (not (t47Blue)) (not (t47Green)) (not (t47Yellow))
-            (t48Red) (not (t48Blue)) (not (t48Green)) (not (t48Yellow))
-        )
-    )
-
-    (:action applyGreen
-        :parameters ()
-        :precondition (and)
-        :effect (and
-            (when
-                (= (t11CoverCounter) 0)
-                (and
-                    (t11Green)
-                    (not (t11Red)) (not (t11Blue)) (not (t11Yellow))
-                ))
-            (when
-                (= (t12CoverCounter) 0)
-                (and
-                    (t12Green)
-                    (not (t12Red)) (not (t12Blue)) (not (t12Yellow))
-                ))
-            (when
-                (= (t13CoverCounter) 0)
-                (and
-                    (t13Green)
-                    (not (t13Red)) (not (t13Blue)) (not (t13Yellow))
-                ))
-            (when
-                (= (t14CoverCounter) 0)
-                (and
-                    (t14Green)
-                    (not (t14Green)) (not (t14Blue)) (not (t14Yellow))
-                ))
-            (when
-                (= (t15CoverCounter) 0)
-                (and
-                    (t15Green)
-                    (not (t15Red)) (not (t15Blue)) (not (t15Yellow))
-                ))
-            (when
-                (= (t16CoverCounter) 0)
-                (and
-                    (t16Green)
-                    (not (t16Red)) (not (t16Blue)) (not (t16Yellow))
-                ))
-            (when
-                (= (t17CoverCounter) 0)
-                (and
-                    (t17Green)
-                    (not (t17Red)) (not (t17Blue)) (not (t17Yellow))
-                ))
-            (when
-                (= (t18CoverCounter) 0)
-                (and
-                    (t18Green)
-                    (not (t18Red)) (not (t18Blue)) (not (t18Yellow))
-                ))
-            (when
-                (= (t21CoverCounter) 0)
-                (and
-                    (t21Green)
-                    (not (t21Red)) (not (t21Blue)) (not (t21Yellow))
-                ))
-            (when
-                (= (t22CoverCounter) 0)
-                (and
-                    (t22Green)
-                    (not (t22Red)) (not (t22Blue)) (not (t22Yellow))
-                ))
-            (when
-                (= (t23CoverCounter) 0)
-                (and
-                    (t23Green)
-                    (not (t23Red)) (not (t23Blue)) (not (t23Yellow))
-                ))
-            (when
-                (= (t24CoverCounter) 0)
-                (and
-                    (t24Green)
-                    (not (t24Red)) (not (t24Blue)) (not (t24Yellow))
-                ))
-            (when
-                (= (t25CoverCounter) 0)
-                (and
-                    (t25Green)
-                    (not (t25Red)) (not (t25Blue)) (not (t25Yellow))
-                ))
-            (when
-                (= (t26CoverCounter) 0)
-                (and
-                    (t26Green)
-                    (not (t26Red)) (not (t26Blue)) (not (t26Yellow))
-                ))
-            (when
-                (= (t27CoverCounter) 0)
-                (and
-                    (t27Green)
-                    (not (t27Red)) (not (t27Blue)) (not (t27Yellow))
-                ))
-            (when
-                (= (t28CoverCounter) 0)
-                (and
-                    (t28Green)
-                    (not (t28Red)) (not (t28Blue)) (not (t28Yellow))
-                ))
-            (when
-                (= (t31CoverCounter) 0)
-                (and
-                    (t31Green)
-                    (not (t31Red)) (not (t31Blue)) (not (t31Yellow))
-                ))
-            (when
-                (= (t32CoverCounter) 0)
-                (and
-                    (t32Green)
-                    (not (t32Red)) (not (t32Blue)) (not (t32Yellow))
-                ))
-            (when
-                (= (t33CoverCounter) 0)
-                (and
-                    (t33Green)
-                    (not (t33Red)) (not (t33Blue)) (not (t33Yellow))
-                ))
-            (when
-                (= (t34CoverCounter) 0)
-                (and
-                    (t34Green)
-                    (not (t34Red)) (not (t34Blue)) (not (t34Yellow))
-                ))
-            (when
-                (= (t35CoverCounter) 0)
-                (and
-                    (t35Green)
-                    (not (t35Red)) (not (t35Blue)) (not (t35Yellow))
-                ))
-            (when
-                (= (t36CoverCounter) 0)
-                (and
-                    (t36Green)
-                    (not (t36Red)) (not (t36Blue)) (not (t36Yellow))
-                ))
-            (when
-                (= (t37CoverCounter) 0)
-                (and
-                    (t37Green)
-                    (not (t37Red)) (not (t37Blue)) (not (t37Yellow))
-                ))
-            (when
-                (= (t38CoverCounter) 0)
-                (and
-                    (t38Green)
-                    (not (t38Red)) (not (t38Blue)) (not (t38Yellow))
-                ))
-            (t41Green) (not (t41Red)) (not (t41Blue)) (not (t41Yellow))
-            (t42Green) (not (t42Red)) (not (t42Blue)) (not (t42Yellow))
-            (t43Green) (not (t43Red)) (not (t43Blue)) (not (t43Yellow))
-            (t44Green) (not (t44Red)) (not (t44Blue)) (not (t44Yellow))
-            (t45Green) (not (t45Red)) (not (t45Blue)) (not (t45Yellow))
-            (t46Green) (not (t46Red)) (not (t46Blue)) (not (t46Yellow))
-            (t47Green) (not (t47Red)) (not (t47Blue)) (not (t47Yellow))
-            (t48Green) (not (t48Red)) (not (t48Blue)) (not (t48Yellow))
-        )
-    )
-
-    (:action applyBlue
-        :parameters ()
-        :precondition (and)
-        :effect (and
-            (when
-                (= (t11CoverCounter) 0)
-                (and (t11Blue) (not (t11Red)) (not (t11Green)) (not (t11Yellow))
-                ))
-            (when
-                (= (t12CoverCounter) 0)
-                (and
-                    (t12Blue)
-                    (not (t12Red)) (not (t12Green)) (not (t12Yellow))
-                ))
-            (when
-                (= (t13CoverCounter) 0)
-                (and
-                    (t13Blue)
-                    (not (t13Red)) (not (t13Green)) (not (t13Yellow))
-                ))
-            (when
-                (= (t14CoverCounter) 0)
-                (and
-                    (t14Blue)
-                    (not (t14Blue)) (not (t14Green)) (not (t14Yellow))
-                ))
-            (when
-                (= (t15CoverCounter) 0)
-                (and
-                    (t15Blue)
-                    (not (t15Red)) (not (t15Green)) (not (t15Yellow))
-                ))
-            (when
-                (= (t16CoverCounter) 0)
-                (and
-                    (t16Blue)
-                    (not (t16Red)) (not (t16Green)) (not (t16Yellow))
-                ))
-            (when
-                (= (t17CoverCounter) 0)
-                (and
-                    (t17Blue)
-                    (not (t17Red)) (not (t17Green)) (not (t17Yellow))
-                ))
-            (when
-                (= (t18CoverCounter) 0)
-                (and
-                    (t18Blue)
-                    (not (t18Red)) (not (t18Green)) (not (t18Yellow))
-                ))
-            (when
-                (= (t21CoverCounter) 0)
-                (and
-                    (t21Blue)
-                    (not (t21Red)) (not (t21Green)) (not (t21Yellow))
-                ))
-            (when
-                (= (t21CoverCounter) 0)
-                (and
-                    (t22Blue)
-                    (not (t22Red)) (not (t22Green)) (not (t22Yellow))
-                ))
-            (when
-                (= (t23CoverCounter) 0)
-                (and
-                    (t23Blue)
-                    (not (t23Red)) (not (t23Green)) (not (t23Yellow))
-                ))
-            (when
-                (= (t24CoverCounter) 0)
-                (and
-                    (t24Blue)
-                    (not (t24Red)) (not (t24Green)) (not (t24Yellow))
-                ))
-            (when
-                (= (t25CoverCounter) 0)
-                (and
-                    (t25Blue)
-                    (not (t25Red)) (not (t25Green)) (not (t25Yellow))
-                ))
-            (when
-                (= (t26CoverCounter) 0)
-                (and
-                    (t26Blue)
-                    (not (t26Red)) (not (t26Green)) (not (t26Yellow))
-                ))
-            (when
-                (= (t27CoverCounter) 0)
-                (and
-                    (t27Blue)
-                    (not (t27Red)) (not (t27Green)) (not (t27Yellow))
-                ))
-            (when
-                (= (t28CoverCounter) 0)
-                (and
-                    (t28Blue)
-                    (not (t28Red)) (not (t28Green)) (not (t28Yellow))
-                ))
-            (when
-                (= (t31CoverCounter) 0)
-                (and
-                    (t31Blue)
-                    (not (t31Red)) (not (t31Green)) (not (t31Yellow))
-                ))
-            (when
-                (= (t32CoverCounter) 0)
-                (and
-                    (t32Blue)
-                    (not (t32Red)) (not (t32Green)) (not (t32Yellow))
-                ))
-            (when
-                (= (t33CoverCounter) 0)
-                (and
-                    (t33Blue)
-                    (not (t33Red)) (not (t33Green)) (not (t33Yellow))
-                ))
-            (when
-                (= (t34CoverCounter) 0)
-                (and
-                    (t34Blue)
-                    (not (t34Red)) (not (t34Green)) (not (t34Yellow))
-                ))
-            (when
-                (= (t35CoverCounter) 0)
-                (and
-                    (t35Blue)
-                    (not (t35Red)) (not (t35Green)) (not (t35Yellow))
-                ))
-            (when
-                (= (t36CoverCounter) 0)
-                (and
-                    (t36Blue)
-                    (not (t36Red)) (not (t36Green)) (not (t36Yellow))
-                ))
-            (when
-                (= (t37CoverCounter) 0)
-                (and
-                    (t37Blue)
-                    (not (t37Red)) (not (t37Green)) (not (t37Yellow))
-                ))
-            (when
-                (= (t38CoverCounter) 0)
-                (and
-                    (t38Blue)
-                    (not (t38Red)) (not (t38Green)) (not (t38Yellow))
-                ))
-            (t41Blue) (not (t41Red)) (not (t41Green)) (not (t41Yellow))
-            (t42Blue) (not (t42Red)) (not (t42Green)) (not (t42Yellow))
-            (t43Blue) (not (t43Red)) (not (t43Green)) (not (t43Yellow))
-            (t44Blue) (not (t44Red)) (not (t44Green)) (not (t44Yellow))
-            (t45Blue) (not (t45Red)) (not (t45Green)) (not (t45Yellow))
-            (t46Blue) (not (t46Red)) (not (t46Green)) (not (t46Yellow))
-            (t47Blue) (not (t47Red)) (not (t47Green)) (not (t47Yellow))
-            (t48Blue) (not (t48Red)) (not (t48Green)) (not (t48Yellow))
-        )
-    )
-
-    (:action applyYellow
-        :parameters ()
-        :precondition (and)
-        :effect (and
-            (when
-                (= (t11CoverCounter) 0)
-                (and
-                    (t11Yellow)
-                    (not (t11Blue)) (not (t11Red)) (not (t11Green))
-                ))
-            (when
-                (= (t12CoverCounter) 0)
-                (and
-                    (t12Yellow)
-                    (not (t12Blue)) (not (t12Red)) (not (t12Green))
-                ))
-            (when
-                (= (t13CoverCounter) 0)
-                (and
-                    (t13Yellow)
-                    (not (t13Blue)) (not (t13Red)) (not (t13Green))
-                ))
-            (when
-                (= (t14CoverCounter) 0)
-                (and
-                    (t14Yellow)
-                    (not (t14Blue)) (not (t14Blue)) (not (t14Green))
-                ))
-            (when
-                (= (t15CoverCounter) 0)
-                (and
-                    (t15Yellow)
-                    (not (t15Blue)) (not (t15Red)) (not (t15Green))
-                ))
-            (when
-                (= (t16CoverCounter) 0)
-                (and
-                    (t16Yellow)
-                    (not (t16Blue)) (not (t16Red)) (not (t16Green))
-                ))
-            (when
-                (= (t17CoverCounter) 0)
-                (and
-                    (t17Yellow)
-                    (not (t17Blue)) (not (t17Red)) (not (t17Green))
-                ))
-            (when
-                (= (t18CoverCounter) 0)
-                (and
-                    (t18Yellow)
-                    (not (t18Blue)) (not (t18Red)) (not (t18Green))
-                ))
-            (when
-                (= (t21CoverCounter) 0)
-                (and
-                    (t21Yellow)
-                    (not (t21Blue)) (not (t21Red)) (not (t21Green))
-                ))
-            (when
-                (= (t22CoverCounter) 0)
-                (and
-                    (t22Yellow)
-                    (not (t22Blue)) (not (t22Red)) (not (t22Green))
-                ))
-            (when
-                (= (t23CoverCounter) 0)
-                (and
-                    (t23Yellow)
-                    (not (t23Blue)) (not (t23Red)) (not (t23Green))
-                ))
-            (when
-                (= (t24CoverCounter) 0)
-                (and
-                    (t24Yellow)
-                    (not (t24Blue)) (not (t24Red)) (not (t24Green))
-                ))
-            (when
-                (= (t25CoverCounter) 0)
-                (and
-                    (t25Yellow)
-                    (not (t25Blue)) (not (t25Red)) (not (t25Green))
-                ))
-            (when
-                (= (t26CoverCounter) 0)
-                (and
-                    (t26Yellow)
-                    (not (t26Blue)) (not (t26Red)) (not (t26Green))
-                ))
-            (when
-                (= (t27CoverCounter) 0)
-                (and
-                    (t27Yellow)
-                    (not (t27Blue)) (not (t27Red)) (not (t27Green))
-                ))
-            (when
-                (= (t28CoverCounter) 0)
-                (and
-                    (t28Yellow)
-                    (not (t28Blue)) (not (t28Red)) (not (t28Green))
-                ))
-            (when
-                (= (t31CoverCounter) 0)
-                (and
-                    (t31Yellow)
-                    (not (t31Blue)) (not (t31Red)) (not (t31Green))
-                ))
-            (when
-                (= (t32CoverCounter) 0)
-                (and
-                    (t32Yellow)
-                    (not (t32Blue)) (not (t32Red)) (not (t32Green))
-                ))
-            (when
-                (= (t33CoverCounter) 0)
-                (and
-                    (t33Yellow)
-                    (not (t33Blue)) (not (t33Red)) (not (t33Green))
-                ))
-            (when
-                (= (t34CoverCounter) 0)
-                (and
-                    (t34Yellow)
-                    (not (t34Blue)) (not (t34Red)) (not (t34Green))
-                ))
-            (when
-                (= (t35CoverCounter) 0)
-                (and
-                    (t35Yellow)
-                    (not (t35Blue)) (not (t35Red)) (not (t35Green))
-                ))
-            (when
-                (= (t36CoverCounter) 0)
-                (and
-                    (t36Yellow)
-                    (not (t36Blue)) (not (t36Red)) (not (t36Green))
-                ))
-            (when
-                (= (t37CoverCounter) 0)
-                (and
-                    (t37Yellow)
-                    (not (t37Blue)) (not (t37Red)) (not (t37Green))
-                ))
-            (when
-                (= (t38CoverCounter) 0)
-                (and
-                    (t38Yellow)
-                    (not (t38Blue)) (not (t38Red)) (not (t38Green))
-                ))
-            (t41Yellow) (not (t41Red)) (not (t41Green)) (not (t41Blue))
-            (t42Yellow) (not (t42Red)) (not (t42Green)) (not (t42Blue))
-            (t43Yellow) (not (t43Red)) (not (t43Green)) (not (t43Blue))
-            (t44Yellow) (not (t44Red)) (not (t44Green)) (not (t44Blue))
-            (t45Yellow) (not (t45Red)) (not (t45Green)) (not (t45Blue))
-            (t46Yellow) (not (t46Red)) (not (t46Green)) (not (t46Blue))
-            (t47Yellow) (not (t47Red)) (not (t47Green)) (not (t47Blue))
-            (t48Yellow) (not (t48Red)) (not (t48Green)) (not (t48Blue))
+                (forall
+                    (?cFOR - color)
+                    (and
+                        (not (t38Color ?cFOR))
+                        (when (= ?c ?cFOR) (t38Color ?c)))))
+            (forall
+                (?cFOR - color)
+                (and
+                    (not (t41Color ?cFOR))
+                    (not (t42Color ?cFOR))
+                    (not (t43Color ?cFOR))
+                    (not (t44Color ?cFOR))
+                    (not (t45Color ?cFOR))
+                    (not (t46Color ?cFOR))
+                    (not (t47Color ?cFOR))
+                    (not (t48Color ?cFOR))
+                    (when
+                        (= ?c ?cFOR)
+                        (and
+                            (t41Color ?c)
+                            (t42Color ?c)
+                            (t43Color ?c)
+                            (t44Color ?c)
+                            (t45Color ?c)
+                            (t46Color ?c)
+                            (t47Color ?c)
+                            (t48Color ?c))))
+            )
         )
     )
 )

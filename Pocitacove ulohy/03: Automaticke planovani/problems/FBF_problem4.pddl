@@ -12,6 +12,10 @@
     (:domain factoryBallsForever)
     (:requirements :strips)
 
+    (:objects
+        red green blue yellow - color
+    )
+
   	(:init
   	    (= (t11CoverCounter) 0)
         (= (t12CoverCounter) 0)
@@ -53,10 +57,17 @@
             (not (beltOn))
             (not (hatOn))
 
-            (t11Yellow) (t12Green) (t13Green) (t14Green) (t15Green) (t16Green) (t17Green) (t18Yellow)
-            (t21Yellow) (t22Green) (t23Blue) (t24Yellow) (t25Yellow) (t26Blue) (t27Green) (t28Yellow)
-            (t31Red) (t32Red) (t33Red) (t34Red) (t35Red) (t36Red) (t37Red) (t38Red)
-            (t41Red) (t42Red) (t43Red) (t44Red) (t45Red) (t46Red) (t47Red) (t48Red)
+            (t11Color yellow) (t12Color green) (t13Color green) (t14Color green)
+            (t15Color green) (t16Color green) (t17Color green) (t18Color yellow)
+            
+            (t21Color yellow) (t22Color green) (t23Color blue) (t24Color yellow)
+            (t25Color yellow) (t26Color blue) (t27Color green) (t28Color yellow)
+            
+            (t31Color red) (t32Color red) (t33Color red) (t34Color red)
+            (t35Color red) (t36Color red) (t37Color red) (t38Color red)
+            
+            (t41Color red) (t42Color red) (t43Color red) (t44Color red)
+            (t45Color red) (t46Color red) (t47Color red) (t48Color red)
         )
     )
 )
