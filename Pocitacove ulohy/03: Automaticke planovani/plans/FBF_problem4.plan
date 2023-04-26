@@ -1,0 +1,16 @@
+;;!domain: factoryBallsForever
+;;!problem: level-3
+
+0.00000: (applyblue)
+0.00100: (putoneyes)
+0.00200: (applyyellow)
+0.00300: (putonmask)
+0.00400: (applygreen)
+0.00500: (putoffmask)
+0.00600: (putoffeyes)
+0.00700: (putonhat)
+0.00800: (applyred)
+0.00900: (putoffhat)
+
+; Makespan: 0.009000000000000001
+; Metric: 0.009000000000000001
