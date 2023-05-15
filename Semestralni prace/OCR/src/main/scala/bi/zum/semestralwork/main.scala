@@ -8,34 +8,36 @@ import scala.jdk.CollectionConverters.*
 import scala.collection.mutable
 
 
-case class Point(x: Int, y: Int)
-
-type Candidate = Set[Point]
+type Candidate = Set[Int]
 
 enum Color:
   case White, Black
 
 
-val images: Vector[BufferedImage] = loadImages()
+val imageVectors: Vector[Vector[Color]] = loadImageVectors()
+val mask: Vector[Boolean] = findMask()
 
 
 @main
 def main(): Unit = {
-  val maxIter = 10_000
-  val maxReset = 10
+  val maxIter = 150
+  val maxReset = 50
   val rand = new scala.util.Random
 
-  var bestCandidate: Set[Point] = null
+  var bestCandidate: Set[Int] = null
   var bestCandidateCollisions: Int = 26
 
   var reset = 0
   while (reset != maxReset) {
-    var initState: Set[Point] = Set()
-    while (initState.size != 5)
-      initState = initState + Point(rand.nextInt(16), rand.nextInt(16))
+    var initState: Set[Int] = Set()
+    while (initState.size != 5) {
+      val next = rand.nextInt(16*16)
+      if (mask(next))
+        initState = initState + next
+    }
 
     var currentCandidate = initState
-    var currentCandidateCollisions = calculateCollisions((initState))
+    var currentCandidateCollisions = calculateCollisions(initState)
 
     var bestNeighbor = currentCandidate
     var bestNeighborCollisions = currentCandidateCollisions
@@ -73,20 +75,14 @@ def main(): Unit = {
 }
 
 
-def calculateCollisions(c: Candidate): Int = {
+def calculateCollisions(candidate: Candidate): Int = {
   var collisions = 0
   var values: Set[mutable.ArrayBuffer[Color]] = Set()
 
-  for (image <- images) {
+  for (imageVector <- imageVectors) {
     val value: mutable.ArrayBuffer[Color] = mutable.ArrayBuffer()
-
-    for (point <- c) {
-      val color = image.getRGB(point.x, point.y) match {
-        case -1 => Color.White
-        case -16777216 => Color.Black
-      }
-      value += color
-    }
+    for (index <- candidate)
+      value += imageVector(index)
 
     if (values.contains(value))
       collisions += 1
@@ -101,62 +97,48 @@ def calculateCollisions(c: Candidate): Int = {
 def candidateNeighbors(candidate: Candidate): Set[Candidate] = {
   var neighbors: Set[Candidate] = Set()
 
-  val cv = candidate.toVector
-
-  neighbors += Set(Point(cv(0).x + 1 min 15, cv(0).y), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(0).x - 1 max 0, cv(0).y), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(0).x, cv(0).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(0).x, cv(0).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(0).x + 1 min 15, cv(0).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(0).x + 1 min 15, cv(0).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(0).x - 1 max 0, cv(0).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(0).x - 1 max 0, cv(0).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-
-
-  neighbors += Set(Point(cv(1).x + 1 min 15, cv(1).y), cv(0), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(1).x - 1 max 0, cv(1).y), cv(0), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(1).x, cv(1).y + 1 min 15), cv(0), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(1).x, cv(1).y - 1 max 0), cv(0), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(1).x + 1 min 15, cv(1).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(1).x + 1 min 15, cv(1).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(1).x - 1 max 0, cv(1).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(1).x - 1 max 0, cv(1).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-
-  neighbors += Set(Point(cv(2).x + 1 min 15, cv(2).y), cv(1), cv(0), cv(3), cv(4))
-  neighbors += Set(Point(cv(2).x - 1 max 0, cv(2).y), cv(1), cv(0), cv(3), cv(4))
-  neighbors += Set(Point(cv(2).x, cv(2).y + 1 min 15), cv(1), cv(0), cv(3), cv(4))
-  neighbors += Set(Point(cv(2).x, cv(2).y - 1 max 0), cv(1), cv(0), cv(3), cv(4))
-  neighbors += Set(Point(cv(2).x + 1 min 15, cv(2).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(2).x + 1 min 15, cv(2).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(2).x - 1 max 0, cv(2).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(2).x - 1 max 0, cv(2).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-
-  neighbors += Set(Point(cv(3).x + 1 min 15, cv(3).y), cv(1), cv(2), cv(0), cv(4))
-  neighbors += Set(Point(cv(3).x - 1 max 0, cv(3).y), cv(1), cv(2), cv(0), cv(4))
-  neighbors += Set(Point(cv(3).x, cv(3).y + 1 min 15), cv(1), cv(2), cv(0), cv(4))
-  neighbors += Set(Point(cv(3).x, cv(3).y - 1 max 0), cv(1), cv(2), cv(0), cv(4))
-  neighbors += Set(Point(cv(3).x + 1 min 15, cv(3).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(3).x + 1 min 15, cv(3).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(3).x - 1 max 0, cv(3).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(3).x - 1 max 0, cv(3).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-
-  neighbors += Set(Point(cv(4).x + 1 min 15, cv(4).y), cv(1), cv(2), cv(3), cv(0))
-  neighbors += Set(Point(cv(4).x - 1 max 0, cv(4).y), cv(1), cv(2), cv(3), cv(0))
-  neighbors += Set(Point(cv(4).x, cv(4).y + 1 min 15), cv(1), cv(2), cv(3), cv(0))
-  neighbors += Set(Point(cv(4).x, cv(4).y - 1 max 0), cv(1), cv(2), cv(3), cv(0))
-  neighbors += Set(Point(cv(4).x + 1 min 15, cv(4).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(4).x + 1 min 15, cv(4).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(4).x - 1 max 0, cv(4).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
-  neighbors += Set(Point(cv(4).x - 1 max 0, cv(4).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
+  for (index <- candidate) {
+    val rest = candidate.filter(_ != index)
+    val shift = (0 until 16*16).toSet.filter(x => !rest.contains(x) && mask(x))
+    shift.foreach(neighbors += rest union Set(_))
+  }
 
   neighbors
 }
 
 
-private def loadImages(): Vector[BufferedImage] = {
-  val imagesTMP = mutable.ArrayBuffer.empty[BufferedImage]
+// INIT //
+
+def loadImageVectors(): Vector[Vector[Color]] = {
+  var res: Vector[Vector[Color]] = Vector()
+
   for (path <- Files.list(Paths.get("src/main/resources/latin_script")).iterator().asScala) {
-    imagesTMP += ImageIO.read(path.toFile)
+    val image = ImageIO.read(path.toFile)
+
+    var imageArray: Array[Color] = Array()
+    for (y <- 0 until image.getHeight(); x <- 0 until image.getWidth()) {
+      val color = image.getRGB(x, y) match
+        case -1 => Color.White
+        case -16777216 => Color.Black
+      imageArray = imageArray :+ color
+    }
+
+    res = res appended imageArray.toVector
   }
-  imagesTMP.toVector
+
+  res
+}
+
+
+def findMask(): Vector[Boolean] = {
+  var res: Vector[Boolean] = Vector()
+
+  for (i <- 0 until 16*16) {
+    if ( imageVectors.forall(_(i) == imageVectors.head(i)) )
+      res = res appended false
+    else
+      res = res appended true
+  }
+
+  res
 }
