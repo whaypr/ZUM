@@ -44,7 +44,7 @@ def main(): Unit = {
     while (currentCandidateCollisions != 0 && iter != maxIter) {
 
       for (neighbor <- candidateNeighbors(currentCandidate)) {
-        if (calculateCollisions(neighbor) < bestNeighborCollisions) {
+        if (calculateCollisions(neighbor) <= bestNeighborCollisions) {
           bestNeighbor = neighbor
           bestNeighborCollisions = calculateCollisions(neighbor)
         }
@@ -107,28 +107,47 @@ def candidateNeighbors(candidate: Candidate): Set[Candidate] = {
   neighbors += Set(Point(cv(0).x - 1 max 0, cv(0).y), cv(1), cv(2), cv(3), cv(4))
   neighbors += Set(Point(cv(0).x, cv(0).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
   neighbors += Set(Point(cv(0).x, cv(0).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
-  
+  neighbors += Set(Point(cv(0).x + 1 min 15, cv(0).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(0).x + 1 min 15, cv(0).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(0).x - 1 max 0, cv(0).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(0).x - 1 max 0, cv(0).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
 
 
   neighbors += Set(Point(cv(1).x + 1 min 15, cv(1).y), cv(0), cv(2), cv(3), cv(4))
   neighbors += Set(Point(cv(1).x - 1 max 0, cv(1).y), cv(0), cv(2), cv(3), cv(4))
   neighbors += Set(Point(cv(1).x, cv(1).y + 1 min 15), cv(0), cv(2), cv(3), cv(4))
   neighbors += Set(Point(cv(1).x, cv(1).y - 1 max 0), cv(0), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(1).x + 1 min 15, cv(1).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(1).x + 1 min 15, cv(1).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(1).x - 1 max 0, cv(1).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(1).x - 1 max 0, cv(1).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
 
   neighbors += Set(Point(cv(2).x + 1 min 15, cv(2).y), cv(1), cv(0), cv(3), cv(4))
   neighbors += Set(Point(cv(2).x - 1 max 0, cv(2).y), cv(1), cv(0), cv(3), cv(4))
   neighbors += Set(Point(cv(2).x, cv(2).y + 1 min 15), cv(1), cv(0), cv(3), cv(4))
   neighbors += Set(Point(cv(2).x, cv(2).y - 1 max 0), cv(1), cv(0), cv(3), cv(4))
+  neighbors += Set(Point(cv(2).x + 1 min 15, cv(2).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(2).x + 1 min 15, cv(2).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(2).x - 1 max 0, cv(2).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(2).x - 1 max 0, cv(2).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
 
   neighbors += Set(Point(cv(3).x + 1 min 15, cv(3).y), cv(1), cv(2), cv(0), cv(4))
   neighbors += Set(Point(cv(3).x - 1 max 0, cv(3).y), cv(1), cv(2), cv(0), cv(4))
   neighbors += Set(Point(cv(3).x, cv(3).y + 1 min 15), cv(1), cv(2), cv(0), cv(4))
   neighbors += Set(Point(cv(3).x, cv(3).y - 1 max 0), cv(1), cv(2), cv(0), cv(4))
+  neighbors += Set(Point(cv(3).x + 1 min 15, cv(3).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(3).x + 1 min 15, cv(3).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(3).x - 1 max 0, cv(3).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(3).x - 1 max 0, cv(3).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
 
   neighbors += Set(Point(cv(4).x + 1 min 15, cv(4).y), cv(1), cv(2), cv(3), cv(0))
   neighbors += Set(Point(cv(4).x - 1 max 0, cv(4).y), cv(1), cv(2), cv(3), cv(0))
   neighbors += Set(Point(cv(4).x, cv(4).y + 1 min 15), cv(1), cv(2), cv(3), cv(0))
   neighbors += Set(Point(cv(4).x, cv(4).y - 1 max 0), cv(1), cv(2), cv(3), cv(0))
+  neighbors += Set(Point(cv(4).x + 1 min 15, cv(4).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(4).x + 1 min 15, cv(4).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(4).x - 1 max 0, cv(4).y + 1 min 15), cv(1), cv(2), cv(3), cv(4))
+  neighbors += Set(Point(cv(4).x - 1 max 0, cv(4).y - 1 max 0), cv(1), cv(2), cv(3), cv(4))
 
   neighbors
 }
