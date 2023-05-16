@@ -16,14 +16,19 @@ enum Color:
   case White, Black
 
 
-val imageVectors: Vector[Vector[Color]] = loadImageVectors()
+val width = 16
+val height = 16
+val maxIter = 150
+val maxReset = 150
+val minBits = 6
+val imagesDirPathName = "src/main/resources/hiragana"
+
+val imageVectors: Vector[Vector[Color]] = loadImageVectors(imagesDirPathName)
 val mask: Vector[Boolean] = findMask()
 
 
 @main
 def main(): Unit = {
-  val maxIter = 150
-  val maxReset = 50
   val rand = new scala.util.Random
 
   var bestCandidate: Set[Int] = null
@@ -32,8 +37,8 @@ def main(): Unit = {
   var reset = 0
   while (bestCandidateCollisions != 0 && reset != maxReset) {
     var initState: Set[Int] = Set()
-    while (initState.size != 5) {
-      val next = rand.nextInt(16*16)
+    while (initState.size != minBits) {
+      val next = rand.nextInt(width * height)
       if (mask(next))
         initState = initState + next
     }
@@ -101,7 +106,7 @@ def candidateNeighbors(candidate: Candidate): Set[Candidate] = {
 
   for (index <- candidate) {
     val rest = candidate.filter(_ != index)
-    val shift = (0 until 16*16).toSet.filter(x => !rest.contains(x) && mask(x))
+    val shift = (0 until width * height).toSet.filter(x => !rest.contains(x) && mask(x))
     shift.foreach(neighbors += rest union Set(_))
   }
 
@@ -111,10 +116,10 @@ def candidateNeighbors(candidate: Candidate): Set[Candidate] = {
 
 // INIT //
 
-def loadImageVectors(): Vector[Vector[Color]] = {
+def loadImageVectors(pathname: String): Vector[Vector[Color]] = {
   var res: Vector[Vector[Color]] = Vector()
 
-  for (path <- Files.list(Paths.get("src/main/resources/latin_script")).iterator().asScala) {
+  for (path <- Files.list(Paths.get(pathname)).iterator().asScala) {
     val image = ImageIO.read(path.toFile)
 
     var imageArray: Array[Color] = Array()
@@ -135,7 +140,7 @@ def loadImageVectors(): Vector[Vector[Color]] = {
 def findMask(): Vector[Boolean] = {
   var res: Vector[Boolean] = Vector()
 
-  for (i <- 0 until 16*16) {
+  for (i <- 0 until width * height) {
     if ( imageVectors.forall(_(i) == imageVectors.head(i)) )
       res = res appended false
     else
