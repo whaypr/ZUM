@@ -1,11 +1,13 @@
+package bi.zum.semestralwork
+
 import java.awt.image.BufferedImage
 import java.io.File
 import java.nio.file.{Files, Path, Paths}
 import javax.imageio.ImageIO
 import scala.collection.immutable.Set
+import scala.collection.mutable
 import scala.io.Source
 import scala.jdk.CollectionConverters.*
-import scala.collection.mutable
 
 
 type Candidate = Set[Int]
@@ -28,7 +30,7 @@ def main(): Unit = {
   var bestCandidateCollisions: Int = 26
 
   var reset = 0
-  while (reset != maxReset) {
+  while (bestCandidateCollisions != 0 && reset != maxReset) {
     var initState: Set[Int] = Set()
     while (initState.size != 5) {
       val next = rand.nextInt(16*16)
