@@ -83,6 +83,47 @@ class Solver(bits: Int, imagesDirPathName: String) {
   }
 
 
+  def simulatedAnnealing(
+      maxTemperature: Double,
+      decrease: Double => Double = (x: Double) => x - 0.00001,
+      probability: (Int, Int, Double) => Double = (curr: Int, next: Int, t: Double) => Math.pow(Math.E, -(next - curr) / t)
+  ): Unit = {
+    var temperature = maxTemperature
+
+    var currentCandidate: Set[Int] = Set()
+    while (currentCandidate.size != bits) {
+      val next = rand.nextInt(width * height)
+      if (mask(next))
+        currentCandidate = currentCandidate + next
+    }
+    var currentCandidateCollisions = calculateCollisions(currentCandidate)
+
+    while (currentCandidateCollisions != 0 && temperature > 0) {
+      val neighborCandidates = candidateNeighbors(currentCandidate).toVector
+      val bestNeighbor = neighborCandidates( rand.nextInt(neighborCandidates.size) )
+      val bestNeighborCollisions = calculateCollisions(bestNeighbor)
+
+      if (
+        bestNeighborCollisions < currentCandidateCollisions
+        || probability(currentCandidateCollisions, bestNeighborCollisions, temperature) >= rand.nextDouble()
+      ) {
+        currentCandidate = bestNeighbor
+        currentCandidateCollisions = bestNeighborCollisions
+      }
+
+      temperature = decrease(temperature)
+
+      print("\u001b[2J")
+      println(s"Temperature: ${temperature}/${maxTemperature}")
+      println(s"Current candidate with ${currentCandidateCollisions} collisions: ${currentCandidate}")
+    }
+
+    println("Best candidate:")
+    println(s"${currentCandidate}")
+    println(s"${currentCandidateCollisions}")
+  }
+
+
   //---------------//
   //    PRIVATE    //
   //---------------//
