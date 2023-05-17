@@ -8,6 +8,7 @@ import scala.collection.immutable.Set
 import scala.collection.mutable
 import scala.io.Source
 import scala.jdk.CollectionConverters.*
+import scala.util.control.Breaks.{break, breakable}
 
 
 type Candidate = Set[Int]
@@ -19,8 +20,8 @@ enum Color:
 val width = 16
 val height = 16
 val maxIter = 150
-val maxReset = 150
-val minBits = 6
+val maxReset = 10_000
+val minBits = 7
 val imagesDirPathName = "src/main/resources/hiragana"
 
 val imageVectors: Vector[Vector[Color]] = loadImageVectors(imagesDirPathName)
@@ -49,15 +50,30 @@ def main(): Unit = {
     var bestNeighbor = currentCandidate
     var bestNeighborCollisions = currentCandidateCollisions
 
-    var iter = 0
-    while (currentCandidateCollisions != 0 && iter != maxIter) {
+    var usedCandidatesOnTheSameLevel: Array[Candidate] = Array()
 
+    var iter = 0
+    breakable{ while (currentCandidateCollisions != 0 && iter != maxIter) {
+
+      var candidateChanged = false
       for (neighbor <- candidateNeighbors(currentCandidate)) {
-        if (calculateCollisions(neighbor) <= bestNeighborCollisions) {
-          bestNeighbor = neighbor
-          bestNeighborCollisions = calculateCollisions(neighbor)
+        if (!usedCandidatesOnTheSameLevel.contains(neighbor)) {
+          val neighborCollisions = calculateCollisions(neighbor)
+
+          if (neighborCollisions <= bestNeighborCollisions) {
+            if (neighborCollisions == bestNeighborCollisions)
+              usedCandidatesOnTheSameLevel = usedCandidatesOnTheSameLevel :+ neighbor
+            else
+              usedCandidatesOnTheSameLevel = Array()
+
+            bestNeighbor = neighbor
+            bestNeighborCollisions = neighborCollisions
+            candidateChanged = true
+          }
         }
       }
+
+      if (!candidateChanged) break()
 
       currentCandidate = bestNeighbor
       currentCandidateCollisions = calculateCollisions(bestNeighbor)
@@ -67,7 +83,7 @@ def main(): Unit = {
       println(s"Resets: ${reset}/${maxReset}")
       println(s"Best solution so far with ${bestCandidateCollisions} collisions: ${bestCandidate}")
       iter += 1
-    }
+    } }
 
     if (currentCandidateCollisions < bestCandidateCollisions) {
       bestCandidate = currentCandidate
