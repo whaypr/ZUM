@@ -11,11 +11,9 @@ import scala.jdk.CollectionConverters.*
 import scala.util.control.Breaks.{break, breakable}
 
 
-class Solver(maxIterations: Int, maxResets: Int, bits: Int, imagesDirPathName: String) {
+class Solver(bits: Int, imagesDirPathName: String) {
 
-  def steepestAscentHillClimbingWithResets(): Unit = {
-    val rand = new scala.util.Random
-
+  def steepestAscentHillClimbingWithResets(maxIterations: Int, maxResets: Int): Unit = {
     var bestCandidate: Set[Int] = null
     var bestCandidateCollisions: Int = 26
 
@@ -61,13 +59,14 @@ class Solver(maxIterations: Int, maxResets: Int, bits: Int, imagesDirPathName: S
           if (!candidateChanged) break()
 
           currentCandidate = bestNeighbor
-          currentCandidateCollisions = calculateCollisions(bestNeighbor)
+          currentCandidateCollisions = bestNeighborCollisions
+
+          iter += 1
 
           print("\u001b[2J")
           println(s"Iterations: ${iter}/${maxIterations}")
           println(s"Resets: ${reset}/${maxResets}")
           println(s"Best solution so far with ${bestCandidateCollisions} collisions: ${bestCandidate}")
-          iter += 1
         }
       }
 
@@ -87,6 +86,8 @@ class Solver(maxIterations: Int, maxResets: Int, bits: Int, imagesDirPathName: S
   //---------------//
   //    PRIVATE    //
   //---------------//
+
+  private val rand = new scala.util.Random
 
   private val (width, height): (Int, Int) = getDimensions(imagesDirPathName)
   private val imageVectors: Vector[Vector[Color]] = loadImageVectors(imagesDirPathName)
