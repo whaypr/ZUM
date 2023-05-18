@@ -135,6 +135,61 @@ class Solver(bits: Int, imagesDirPathName: String) {
   }
 
 
+  def tabuSearch(tabuListSize: Int, maxIterations: Int): Unit = {
+    var currentCandidate: Set[Int] = Set()
+    while (currentCandidate.size != bits) {
+      val next = rand.nextInt(width * height)
+      if (mask(next))
+        currentCandidate = currentCandidate + next
+    }
+    var currentCandidateCollisions = calculateCollisions(currentCandidate)
+
+    var bestCandidate = currentCandidate
+    var bestCandidateCollisions = currentCandidateCollisions
+
+    var iteration = 0
+    val tabuList: Array[Candidate] = new Array(tabuListSize)
+
+    while (currentCandidateCollisions != 0 && iteration < maxIterations) {
+      val neighborCandidates = candidateNeighbors(currentCandidate).toVector
+      var bestNeighbor = neighborCandidates.head
+      var bestNeighborCollisions = calculateCollisions(bestNeighbor)
+
+      for (neighbor <- neighborCandidates) { breakable{
+        if (tabuList.contains(neighbor)) break()
+
+        val neighborCollisions = calculateCollisions(neighbor)
+
+        if (neighborCollisions < bestNeighborCollisions) {
+          bestNeighbor = neighbor
+          bestNeighborCollisions = neighborCollisions
+        }
+      }}
+
+      tabuList(iteration % tabuListSize) = bestNeighbor
+      currentCandidate = bestNeighbor
+      currentCandidateCollisions = bestNeighborCollisions
+
+      if (currentCandidateCollisions < bestCandidateCollisions) {
+        bestCandidate = currentCandidate
+        bestCandidateCollisions = currentCandidateCollisions
+      }
+
+      iteration += 1
+
+      print("\u001b[2J")
+      println(s"Iteration: ${iteration}/${maxIterations}")
+      println(s"Current candidate with ${currentCandidateCollisions} collisions: ${currentCandidate}")
+      println(s"Best candidate so far with ${bestCandidateCollisions} collisions: ${bestCandidate}")
+    }
+
+    println("------------")
+    println("Best candidate:")
+    println(s"${bestCandidate}")
+    println(s"${bestCandidateCollisions}")
+  }
+
+
   //---------------//
   //    PRIVATE    //
   //---------------//
