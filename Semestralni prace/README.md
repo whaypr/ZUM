@@ -14,8 +14,8 @@ OSNOVA
 3. [Výběr metody](#výběr-metody)
 4. [Popis aplikace metody na problém](#popis-aplikace-metody-na-problém)
 5. [Implementace](#implementace)
-6. [Reference](#reference)
-7. [Výsledky](#výsledky)
+6. [Shrnutí a výsledky](#shrnutí-a-výsledky)
+7. [Reference](#reference)
 
 ---
 
