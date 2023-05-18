@@ -77,6 +77,7 @@ class Solver(bits: Int, imagesDirPathName: String) {
       reset += 1
     }
 
+    println("------------")
     println("Best result:")
     println(s"${bestCandidate}")
     println(s"${bestCandidateCollisions}")
@@ -98,6 +99,9 @@ class Solver(bits: Int, imagesDirPathName: String) {
     }
     var currentCandidateCollisions = calculateCollisions(currentCandidate)
 
+    var bestCandidate = currentCandidate
+    var bestCandidateCollisions = currentCandidateCollisions
+
     while (currentCandidateCollisions != 0 && temperature > 0) {
       val neighborCandidates = candidateNeighbors(currentCandidate).toVector
       val bestNeighbor = neighborCandidates( rand.nextInt(neighborCandidates.size) )
@@ -111,13 +115,20 @@ class Solver(bits: Int, imagesDirPathName: String) {
         currentCandidateCollisions = bestNeighborCollisions
       }
 
+      if (currentCandidateCollisions < bestCandidateCollisions) {
+        bestCandidate = currentCandidate
+        bestCandidateCollisions = currentCandidateCollisions
+      }
+
       temperature = decrease(temperature)
 
       print("\u001b[2J")
       println(s"Temperature: ${temperature}/${maxTemperature}")
       println(s"Current candidate with ${currentCandidateCollisions} collisions: ${currentCandidate}")
+      println(s"Best candidate so far with ${bestCandidateCollisions} collisions: ${bestCandidate}")
     }
 
+    println("------------")
     println("Best candidate:")
     println(s"${currentCandidate}")
     println(s"${currentCandidateCollisions}")
